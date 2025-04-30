@@ -1,0 +1,33 @@
+from Crypto.Cipher import AES, DES
+
+def aes_encryption_decryption():
+    key = b'pradippagarepsps' 
+    data = "student of infotech sanjivani".encode()
+
+    cipher = AES.new(key, AES.MODE_EAX)
+    nonce = cipher.nonce
+    ciphertext = cipher.encrypt(data)
+    print("AES Cipher text:", ciphertext)
+
+    cipher = AES.new(key, AES.MODE_EAX, nonce=nonce)
+    plaintext = cipher.decrypt(ciphertext)                                      
+    print("AES Plain Text:", plaintext.decode())
+
+def des_encryption_decryption():
+    key = b'pradipsp' 
+    data = "webdevloper".encode()  
+
+    cipher = DES.new(key, DES.MODE_ECB)
+    padded_data = data + b' ' * (8 - len(data) % 8) 
+    ciphertext = cipher.encrypt(padded_data)
+    print("DES Cipher text:", ciphertext)
+
+    cipher = DES.new(key, DES.MODE_ECB)
+    plaintext = cipher.decrypt(ciphertext).rstrip(b' ')
+    print("DES Plain Text:", plaintext.decode())
+
+if __name__ == "__main__":
+    print("AES Encryption/Decryption:")
+    aes_encryption_decryption()
+    print("\nDES Encryption/Decryption:")
+    des_encryption_decryption()
