@@ -1,0 +1,43 @@
+import java.util.Scanner;
+
+public class DiffieHellman {
+    
+    static long modExp(long base, long exp, long mod) {
+        long result = 1;
+        base = base % mod;
+        while (exp > 0) {
+            if ((exp & 1) == 1) {
+                result = (result * base) % mod;
+            }
+            base = (base * base) % mod;
+            exp >>= 1;
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Enter prime number: ");
+        long p = scanner.nextLong();
+        
+        System.out.print("Enter primitive root for p: ");
+        long g = scanner.nextLong();
+        
+        System.out.print("Private key for Alice: ");
+        long a = scanner.nextLong();
+        long x = modExp(g, a, p);
+        
+        System.out.print("Private key for Bob: ");
+        long b = scanner.nextLong();
+        long y = modExp(g, b, p);
+        
+        long ka = modExp(y, a, p);
+        long kb = modExp(x, b, p);
+        
+        System.out.println("Secret key for Alice: " + ka);
+        System.out.println("Secret key for Bob: " + kb);
+        
+        scanner.close();
+    }
+}
