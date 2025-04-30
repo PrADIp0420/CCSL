@@ -1,0 +1,7 @@
+import hashlib
+
+def md5(s):
+    return hashlib.md5(s.encode()).hexdigest()
+s = input("Enter string: ")
+print("md5 Output:")
+print(md5(s))
