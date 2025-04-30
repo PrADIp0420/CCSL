@@ -1,0 +1,31 @@
+public class RSA {
+    public static void main(String[] args) {
+        // Public and private keys (simplified for learning purposes)
+        int p = 7, q = 11; // Two prime numbers
+        int n = p * q; // Modulus
+        int phi = (p - 1) * (q - 1); // Euler's totient function
+
+        int e = 17; // Public exponent (should be coprime with phi)
+        int d = 53; // Private exponent (calculated manually for simplicity)
+
+        int message = 89; // Simple numerical message
+        System.out.println("Original Message: " + message);
+
+        // Encrypt message: c = (m^e) % n
+        int encryptedMessage = modPow(message, e, n);
+        System.out.println("Encrypted Message: " + encryptedMessage);
+
+        // Decrypt message: m = (c^d) % n
+        int decryptedMessage = modPow(encryptedMessage, d, n);
+        System.out.println("Decrypted Message: " + decryptedMessage);
+    }
+
+    // Function to compute (base^exp) % mod using modular exponentiation
+    public static int modPow(int base, int exp, int mod) {
+        int result = 1;
+        for (int i = 0; i < exp; i++) {
+            result = (result * base) % mod;
+        }
+        return result;
+    }
+}
